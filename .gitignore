@@ -1,2 +1,5 @@
 .env
+.todo
+.notes
+src/database/*.sqlite3
 /node_modules
