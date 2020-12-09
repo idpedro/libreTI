@@ -3,3 +3,4 @@
 .notes
 src/database/*.sqlite3
 /node_modules
+secret.key

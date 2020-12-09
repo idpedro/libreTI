@@ -7,7 +7,10 @@ export async function up(knex: Knex): Promise<void> {
         table.text('role').notNullable();
         table.text('email').unique().notNullable();
         table.text('password').notNullable();
+        table.boolean('block').defaultTo(false).notNullable();
 
+        // Foreing key from user types table
+        table.integer('idType').index().references('id').inTable('user_types');
         // Foreing key from groups table
         table.integer('idGroup').unsigned().notNullable()
         .index().references('id').inTable('groups');

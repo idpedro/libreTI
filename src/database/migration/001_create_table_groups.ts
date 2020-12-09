@@ -5,8 +5,11 @@ export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable('groups',function(table){
         table.increments('id').primary();
         table.text('name').unique().notNullable();
-        table.json('permision')
-        // todo
+        table.boolean('block').defaultTo(false).notNullable();
+
+        // Log Fild
+        table.timestamp('create_at').defaultTo(knex.fn.now());
+        table.timestamp('updated_at').defaultTo(knex.fn.now());
     });
 }
 
