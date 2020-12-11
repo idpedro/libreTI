@@ -5,15 +5,16 @@ export async function up(knex: Knex): Promise<void> {
     return knex.schema.createTable('user_types',function(table){
         table.increments('id').primary();
         table.text('name').unique().notNullable();
-        table.text('descption').notNullable();
-        table.boolean('isAdmin').defaultTo(false).notNullable();
-        table.boolean('isSuper').defaultTo(false).notNullable();
-        table.text('modules').notNullable().defaultTo((process.env.APP_EXTERNAL_MODULES as string));
+        table.text('description').notNullable();
+        table.boolean('isAdmin').defaultTo(false);
+        table.boolean('isSuper').defaultTo(false);
+        table.boolean('globalView').defaultTo(false);
         
     });
 }
 
 
 export async function down(knex: Knex): Promise<void> {
+    return knex.schema.dropTable('user_types');
 }
 
