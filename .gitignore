@@ -1,6 +1,7 @@
 .env
 .todo
 .notes
+notes.md
 src/database/*.sqlite3
 /node_modules
 secret.key
