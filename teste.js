@@ -1,6 +1,10 @@
-import { createRequire } from 'module';
-const require = createRequire(import.meta.url);
+import knex from "./src/database";
 
-const configModules = require('./modules.json');
+const test = async () => {
+  const users = await knex.select().from("equipament_types");
+  return users;
+};
 
-console.log(configModules.modules[0]);     
+test().then((users) => {
+  console.log(users);
+});
