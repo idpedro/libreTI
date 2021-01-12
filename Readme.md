@@ -11,12 +11,19 @@ A funcionalidades serão:
 - [ ] Geração de Os
 - [ ] Geração de Cadastro atraves do e-mail
 - [ ] Integração com servidor smtp 
-- [ ] Alertas nas mudanças de status de cada OS
+- [ ] Alertas nas mudanças de status de cada OS (Websockets)
+- [-] Controle de equipamentos
 
 O que ta sendo trabalhado atualmente:
 
 - Gerando Estrutura base para o prejeto
   - Contruir modelo da API
-    - [ ] Criando Modelos das tabelas
-    - [ ] Modelando API REST
-    - [ ] Criando Estrutua do banco de dados
+    - [x] Modelando API REST
+    - [-] Criando Estrutua do banco de dados
+      - [-] Criando Modelos das tabelas de Usuario
+        - [-] Tipos de Usuarios
+        - [-] Usuarios
+        - [x] Grupos
+      - [-] Criando Tabelas de Equipamentos 
+        - [x] Tipos de Equipamentos  
+        - [-] Equipamentos  
