@@ -4,6 +4,8 @@ import EquipamentsController from "./Controller/EquipamentController";
 
 const Equipaments = Router();
 Equipaments.use("/types", TypesRouter);
-Equipaments.post("/", EquipamentsController.create);
+Equipaments.get("/", EquipamentsController.getAll);
+Equipaments.get("/:id", EquipamentsController.getById);
+Equipaments.post("/", EquipamentsController.inset);
 
 export default Equipaments;

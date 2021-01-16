@@ -1,34 +1,33 @@
-import path from 'path';
+import path from "path";
 
 // Update with your config settings.
 export default {
   development: {
-    client: 'sqlite3',
+    client: "sqlite3",
     connection: {
-      filename:path.join(__dirname,"src","database","dev.sqlite3")
+      filename: path.join(__dirname, "src", "Database", "dev.sqlite3"),
     },
-    useNullAsDefault:true,
+    useNullAsDefault: true,
     migrations: {
-      tableName: 'knex_migrations',
-      directory:path.join(__dirname,"src","database","migration")
+      tableName: "knex_migrations",
+      directory: path.join(__dirname, "src", "Database", "migration"),
     },
-    seeds:{
-      directory:path.join(__dirname,"src","database","seeds")
-    }
+    seeds: {
+      directory: path.join(__dirname, "src", "Database", "seeds"),
+    },
   },
   production: {
-    client: 'sqlite3',
+    client: "sqlite3",
     connection: {
-      filename:path.join(__dirname,"src","database","db.sqlite3")
+      filename: path.join(__dirname, "src", "Database", "db.sqlite3"),
     },
-    useNullAsDefault:true,
+    useNullAsDefault: true,
     migrations: {
-      tableName: 'knex_migrations',
-      directory:path.join(__dirname,"src","database","migration")
+      tableName: "knex_migrations",
+      directory: path.join(__dirname, "src", "Database", "migration"),
     },
-    seeds:{
-      directory:path.join(__dirname,"src","database","seeds")
-    }
-  }
-
-}
+    seeds: {
+      directory: path.join(__dirname, "src", "Database", "seeds"),
+    },
+  },
+};

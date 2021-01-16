@@ -1,6 +1,5 @@
-import { json, Request, Response } from "express";
-import knexfile from "../../../../../knexfile";
-import Knex from "../../../../database";
+import { Request, Response } from "express";
+import Knex from "../../../../Database";
 import EquipamentType, {
   InterfaceEquipamentType,
 } from "../Models/EquipamentType";
@@ -10,7 +9,7 @@ class EquipamentTypesController {
       const equipament_types = await Knex.select("*").from("equipament_types");
       resp.json(equipament_types);
     } else {
-      const equipament_types = await Knex.select("name").from(
+      const equipament_types = await Knex.select("id", "name").from(
         "equipament_types"
       );
       resp.json(equipament_types);
@@ -37,7 +36,7 @@ class EquipamentTypesController {
         if (updatedType > 0) {
           resp.json({ success: true });
         } else {
-          resp.json({ success: false, msg: "Usuário não atualizado" });
+          resp.json({ success: false, msg: "Tipo não atualizado" });
         }
       } catch (error) {
         resp.json({ success: false, msg: error.message });
