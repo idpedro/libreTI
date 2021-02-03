@@ -1,6 +1,7 @@
-import { Request, response, Response } from "express";
+import { Request, Response, NextFunction } from "express";
 import UsersDao from "../../Daos/UsersDao";
 import TypeCheck from "../../Helper/TypeCheck";
+import bcrypt from "bcrypt";
 
 class UsersController {
   public static async getAll(req: Request, resp: Response) {
@@ -18,8 +19,11 @@ class UsersController {
       }
     }
   }
-  public static insert(req: Request, resp: Response) {
-    resp.json(req.body);
+  static async create(req: Request, resp: Response, next: NextFunction) {
+    try {
+      const user = await UsersDao.insert(req.body);
+      resp.json(user);
+    } catch (error) {}
   }
 }
 

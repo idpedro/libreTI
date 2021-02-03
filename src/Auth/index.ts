@@ -1,27 +1,41 @@
 import { Request, Response, NextFunction, response } from "express";
-import jwt from "jsonwebtoken";
+import jwt, { JsonWebTokenError } from "jsonwebtoken";
 
 interface UserPayloadData {
   id: Number;
   name: string;
+  role: string;
   type: Number;
 }
 
 const Auth = {
+  getToken: (authHeader: string) => {
+    const [prefix, token] = authHeader.split(" ");
+    if (prefix === "Bearer" && token) return { prefix, token };
+    throw new JsonWebTokenError("Invalid Auth Header");
+  },
   generateAccessToken: (user: UserPayloadData) => {
     return jwt.sign(user, process.env.TOKEN_SECRET as string, {
-      expiresIn: "1800s",
+      expiresIn: "1h",
     });
   },
   verifyAccessToken: (req: Request, resp: Response, next: NextFunction) => {
-    const authHeader = req.headers["Authorization"] as string;
-    const token = authHeader?.split("")[1];
-    if (token)
-      jwt.verify(token, process.env.TOKEN_SECRET as string, (error, user) => {
-        if (error) resp.status(403).json("Invalid Credentials");
-        return user;
-      });
-    resp.status(401).json("no auth");
+    try {
+      if (req.headers["authorization"]) {
+        const { token } = Auth.getToken(req.headers["authorization"]);
+        jwt.verify(token, process.env.TOKEN_SECRET as string, (error, user) => {
+          if (error) next({ code: 406, message: "Invalid token" });
+          else next();
+        });
+      } else {
+        next({ code: 401, message: "No auth" });
+      }
+    } catch (error) {
+      next({ code: 401, message: error.message });
+    }
+  },
+  getPayload(token: string) {
+    return jwt.decode(token, { json: true });
   },
 };
 

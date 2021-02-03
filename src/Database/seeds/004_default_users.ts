@@ -11,7 +11,7 @@ export async function seed(knex: Knex): Promise<void> {
       name: "Administrador",
       role: "Supevisor de TI",
       email: "sysadmin@localhost",
-      password: bcrypt.hash("123@pass", Number(process.env.HASH_COST)),
+      password: await bcrypt.hash("123@pass", Number(process.env.HASH_COST)),
       idType: "1",
       idGroup: "1",
       block: false,

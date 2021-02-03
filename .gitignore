@@ -2,6 +2,6 @@
 .todo
 .notes
 notes.md
+*.sqlite3
 src/database/*.sqlite3
-/node_modules
-secret.key
+node_modules/

@@ -32,7 +32,7 @@ class EquipamentTypesController {
       try {
         const updatedType = await Knex("equipament_types")
           .where({ id })
-          .update({ name });
+          .update({ name, update_at: Knex.fn.now() });
         if (updatedType > 0) {
           resp.json({ success: true });
         } else {

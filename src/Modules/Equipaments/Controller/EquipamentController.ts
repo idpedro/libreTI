@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Knex from "../../../Database";
 import Equipament, { InterfaceEquipament } from "../Models/Equipament";
 import TypeCheck from "../../../Helper/TypeCheck";
@@ -55,6 +55,11 @@ class EquipamentsController {
     } catch (error) {
       resp.status(500).json({ success: false, msg: error.message });
     }
+  }
+  static async update(req: Request, resp: Response, next: NextFunction) {
+    if (TypeCheck.isInteger(req.params.id) && req.body) {
+      const id = Number(req.params.id);
+    } else console.log(false);
   }
 }
 
