@@ -16,7 +16,7 @@ const Auth = {
   },
   generateAccessToken: (user: UserPayloadData) => {
     return jwt.sign(user, process.env.TOKEN_SECRET as string, {
-      expiresIn: "1h",
+      expiresIn: process.env.TOKEN_DURATION,
     });
   },
   verifyAccessToken: (req: Request, resp: Response, next: NextFunction) => {
