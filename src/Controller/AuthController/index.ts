@@ -1,23 +1,27 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import Auth from "../../Auth";
 import bcrypt from "bcrypt";
 import UsersDao from "../../Daos/UsersDao";
 class AuthController {
-  static async authUser(req: Request, resp: Response) {
-    const { email, password } = req.body;
-    if (!!email && !!password) {
-      const user = await UsersDao.getUserByEmail(email);
-      console.log(user.password);
-      const isValidPass = await bcrypt.compare(password, user.password);
-      user.password = undefined;
-      if (isValidPass) {
-        const token = Auth.generateAccessToken(user);
-        resp.json({ success: true, token });
-      } else {
-        resp
-          .status(403)
-          .json({ success: false, message: "Invalid  credentials" });
+  static async authUser(req: Request, resp: Response, next: NextFunction) {
+    try {
+      const { email, password } = req.body;
+      if (!!email && !!password) {
+        const foundUser = await UsersDao.getUserByEmail(email);
+        const isValidPass = await bcrypt.compare(password, foundUser.password);
+        foundUser.password = undefined;
+        if (isValidPass) {
+          const token = Auth.generateAccessToken(foundUser);
+          resp.json({ success: true, token, user: { name: foundUser.name } });
+        } else {
+          resp
+            .status(403)
+            .json({ success: false, message: "Invalid  credentials" });
+        }
       }
+    } catch (erro) {
+      console.log(erro);
+      next({ code: 400, message: "Invalid  credentials" });
     }
   }
 }
